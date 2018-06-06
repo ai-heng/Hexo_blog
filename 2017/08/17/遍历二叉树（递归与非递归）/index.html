@@ -1,0 +1,1002 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法,树,递归," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="接下来的几天里，我会更多地关注于算法这一块，每天去牛客网刷题，并将其记录在这里。这两天一直在看与二叉树相关的题，利用这篇博客对于二叉树的遍历做一番总结。 二叉树的遍历是指按照某条搜索路线遍访每个结点且不重复，它是树结构插入、删除、修改、查找和排序运算的前提，也是二叉树一切运算的基础和核心。因为树的结构定义本身就是递归，所以递归遍历二叉树会显得更加简洁。但是越简单，有时候理解起来就感觉越为抽象，就像">
+<meta name="keywords" content="算法,树,递归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="遍历二叉树（递归与非递归）">
+<meta property="og:url" content="http://yoursite.com/2017/08/17/遍历二叉树（递归与非递归）/index.html">
+<meta property="og:site_name" content="衡仔的技术小窝">
+<meta property="og:description" content="接下来的几天里，我会更多地关注于算法这一块，每天去牛客网刷题，并将其记录在这里。这两天一直在看与二叉树相关的题，利用这篇博客对于二叉树的遍历做一番总结。 二叉树的遍历是指按照某条搜索路线遍访每个结点且不重复，它是树结构插入、删除、修改、查找和排序运算的前提，也是二叉树一切运算的基础和核心。因为树的结构定义本身就是递归，所以递归遍历二叉树会显得更加简洁。但是越简单，有时候理解起来就感觉越为抽象，就像">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/post24_1.png">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/post24_2.png">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/post24_4.png">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/post24_3.png">
+<meta property="og:updated_time" content="2017-08-20T12:29:55.012Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="遍历二叉树（递归与非递归）">
+<meta name="twitter:description" content="接下来的几天里，我会更多地关注于算法这一块，每天去牛客网刷题，并将其记录在这里。这两天一直在看与二叉树相关的题，利用这篇博客对于二叉树的遍历做一番总结。 二叉树的遍历是指按照某条搜索路线遍访每个结点且不重复，它是树结构插入、删除、修改、查找和排序运算的前提，也是二叉树一切运算的基础和核心。因为树的结构定义本身就是递归，所以递归遍历二叉树会显得更加简洁。但是越简单，有时候理解起来就感觉越为抽象，就像">
+<meta name="twitter:image" content="http://opznmu7n5.bkt.clouddn.com/post24_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/17/遍历二叉树（递归与非递归）/"/>
+
+
+
+
+
+  <title> 遍历二叉树（递归与非递归） | 衡仔的技术小窝 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-103027028-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?98f629bdd7a59dff8e53972873c753d3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">衡仔的技术小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/17/遍历二叉树（递归与非递归）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Heng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://i4.buimg.com/588926/29818dcbd1446c22.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="衡仔的技术小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                遍历二叉树（递归与非递归）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-17T15:51:00+08:00">
+                2017-08-17  15:51:00
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/08/17/遍历二叉树（递归与非递归）/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/08/17/遍历二叉树（递归与非递归）/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/08/17/遍历二叉树（递归与非递归）/" class="leancloud_visitors" data-flag-title="遍历二叉树（递归与非递归）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>接下来的几天里，我会更多地关注于<strong>算法</strong>这一块，每天去<strong>牛客网</strong>刷题，并将其记录在这里。<br>这两天一直在看与<strong>二叉树</strong>相关的题，利用这篇博客对于二叉树的遍历做一番总结。</p>
+<p><strong>二叉树的遍历</strong>是指按照某条搜索路线遍访每个结点且不重复，它是树结构插入、删除、修改、查找和排序运算的前提，也是二叉树一切运算的基础和核心。<br>因为树的结构定义本身就是递归，所以递归遍历二叉树会显得更加简洁。但是越简单，有时候理解起来就感觉越为抽象，就像著名的<strong>汉诺塔</strong>问题一样，我对于递归遍历二叉树的流程没有一个深入的认识了解，而接下来我会去深入了解一下。</p>
+<a id="more"></a>
+<p>定义二叉树的存储结构如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BiNode</span></span></div><div class="line">&#123;				</div><div class="line">	<span class="keyword">char</span> data;						</div><div class="line">	status BiNode *lchild,*rchild; </div><div class="line">&#125;TreeNode,*BiTree;</div></pre></td></tr></table></figure>
+<h1 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历"></a>先序遍历</h1><p><strong>特点：</strong>若二叉树为空，则空操作；否则先访问根结点，然后遍历左子树，再遍历右子树</p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(TreeNode *root)</span>  </span>&#123;</div><div class="line">	<span class="keyword">if</span> (root!=<span class="literal">NULL</span>)  &#123;</div><div class="line">		<span class="built_in">cout</span>&lt;&lt;root-&gt;data;               <span class="comment">//在层层调用的过程中即输出结点值</span></div><div class="line">		PreOrderTraverse(root-&gt;lchild);</div><div class="line">		PreOrderTraverse(root-&gt;rchild);</div><div class="line">	&#125;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h3><p>假如有一棵如下结构的二叉树：</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/post24_1.png" alt=""></p>
+<p>将其利用<strong>递归先序</strong>的方式遍历，具体执行流程如下：</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/post24_2.png" alt=""></p>
+<p>整个递归过程即是函数的层层调用，类似于将函数进行<strong>压栈处理</strong>。</p>
+<p>另外需要提及的一点是：从递归的角度去遍历二叉树时，如果去掉输出语句，三种算法是完全相同的。<br>即<strong>访问路径是相同的，只是访问结点的时机不同</strong>。</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/post24_4.png" alt=""></p>
+<p>从虚线的出发点到终点路径上，每个结点经过3次。</p>
+<ul>
+<li>第1次经过时访问结点：<strong>先序遍历</strong></li>
+<li>第2次经过时访问结点：<strong>中序遍历</strong></li>
+<li>第3次经过时访问结点：<strong>后序遍历</strong></li>
+</ul>
+<h2 id="非递归"><a href="#非递归" class="headerlink" title="非递归"></a>非递归</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">preorderTraverse</span><span class="params">(TreeNode *root)</span> </span>&#123;</div><div class="line">        <span class="built_in">stack</span>&lt;TreeNode *&gt; s;</div><div class="line">        TreeNode *p=root;</div><div class="line">        <span class="keyword">while</span> (p||!s.empty())  &#123;</div><div class="line">            <span class="keyword">while</span> (p)  &#123;         <span class="comment">//沿着结点到最左下</span></div><div class="line">                <span class="built_in">cout</span>&lt;&lt;p-&gt;data;      </div><div class="line">                s.push(p);</div><div class="line">                p=p-&gt;lchild;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (!s.empty())  &#123;</div><div class="line">                p=s.top();</div><div class="line">                s.pop();</div><div class="line">                p=p-&gt;rchild;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="原理分析-1"><a href="#原理分析-1" class="headerlink" title="原理分析"></a>原理分析</h3><p>还是利用上面提及的那棵二叉树，将其利用<strong>先序非递归</strong>的方式遍历，<strong>栈</strong>的变化过程如下：</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/post24_3.png" alt=""></p>
+<h1 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h1><p><strong>特点：</strong>若二叉树为空，则空操作；否则先遍历左子树，然后访问根结点，再遍历右子树</p>
+<h2 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(TreeNode *root)</span>  </span>&#123;</div><div class="line">	<span class="keyword">if</span> (root!=<span class="literal">NULL</span>)  &#123;</div><div class="line">		InOrderTraverse(root-&gt;lchild);</div><div class="line">		<span class="built_in">cout</span>&lt;&lt;root-&gt;data;</div><div class="line">		InOrderTraverse(root-&gt;rchild);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="非递归-1"><a href="#非递归-1" class="headerlink" title="非递归"></a>非递归</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">InorderTraverse</span><span class="params">(TreeNode *root)</span>  </span>&#123;</div><div class="line">	<span class="built_in">stack</span>&lt;TreeNode *&gt; s;</div><div class="line">	TreeNode *p=root;</div><div class="line">	<span class="keyword">while</span> (p||!s.empty())  &#123;</div><div class="line">		<span class="keyword">while</span> (p)  &#123;</div><div class="line">			s.push(p);</div><div class="line">			p=p-&gt;lchild;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> (!s.empty())  &#123;</div><div class="line">			p=s.top();</div><div class="line">			<span class="built_in">cout</span>&lt;&lt;p-&gt;data;</div><div class="line">			s.pop();</div><div class="line">			p=p-&gt;rchild;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h1><p><strong>特点：</strong>若二叉树为空，则空操作；否则先遍历左子树，然后访问根结点，再遍历右子树</p>
+<h2 id="递归-2"><a href="#递归-2" class="headerlink" title="递归"></a>递归</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(TreeNode *root)</span>  </span>&#123;</div><div class="line">	<span class="keyword">if</span> (root!=<span class="literal">NULL</span>)  &#123;</div><div class="line">		PostOrderTraverse(root-&gt;lchild);</div><div class="line">		PostOrderTraverse(root-&gt;rchild);</div><div class="line">		<span class="built_in">cout</span>&lt;&lt;root-&gt;data;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="非递归-2"><a href="#非递归-2" class="headerlink" title="非递归"></a>非递归</h2><p>后序遍历的非递归方法相对于前序遍历和中序遍历会更复杂一些，因为在访问结点的时候需要判断该结点的右孩子是否为空或已经被访问。</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p><strong>解题思路</strong></p>
+<ol>
+<li>分配结点p表示<strong>当前结点</strong>，并指向根结点；结点q表示<strong>刚访问过的结点</strong>，并初始化为空</li>
+<li>沿着左子树遍历到左下角，并将结点分别压入栈中，直至当前结点为空</li>
+<li>当栈非空时，释放栈顶结点并判断该结点右子树是否为空或右子树是否已经被访问过</li>
+<li>若条件成立，输出栈顶结点值，并保存刚访问过的结点，重复操作3</li>
+<li>若右子树存在且未被访问，表明此时栈顶结点不应该被释放，将该结点重新压入栈中，并对右子树结点重复操作2</li>
+<li>当栈空时，程序结束</li>
+</ol>
+<p><strong>源代码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">postorderTraverse</span><span class="params">(TreeNode *root)</span>  </span>&#123;</div><div class="line">	<span class="built_in">stack</span>&lt;TreeNode *&gt; s;</div><div class="line">	<span class="comment">//*p为当前结点，*q为刚访问过的结点</span></div><div class="line">	TreeNode *p=root,*q=<span class="literal">nullptr</span>;</div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        <span class="keyword">while</span> (p != <span class="literal">nullptr</span>) &#123;         <span class="comment">//顺着结点一直往左下走</span></div><div class="line">            s.push(p);</div><div class="line">            p = p-&gt;lchild;</div><div class="line">        &#125;</div><div class="line">        q = <span class="literal">nullptr</span>;</div><div class="line">        <span class="keyword">while</span> (!s.empty()) &#123;</div><div class="line">            p = s.top();</div><div class="line">            s.pop();</div><div class="line">            <span class="comment">//判断处于栈顶的p结点右孩子是否为空或者右孩子是否已经被访问过</span></div><div class="line">            <span class="keyword">if</span> (p-&gt;rchild == q) &#123;</div><div class="line">                <span class="built_in">cout</span>&lt;&lt;p-&gt;data;</div><div class="line">                <span class="comment">//保存访问过的结点，可供父节点判断使用</span></div><div class="line">                q = p; </div><div class="line">                &#125;</div><div class="line">            <span class="keyword">else</span> &#123;                <span class="comment">//说明右孩子存在且未被访问过</span></div><div class="line">                <span class="comment">//栈顶的p结点之前被错误释放，所以需要重新入栈</span></div><div class="line">                s.push(p);</div><div class="line">                p = p-&gt;rchild;</div><div class="line">                <span class="keyword">break</span>;            <span class="comment">//跳出当前循环，将右孩子压入栈中</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">while</span> (!s.empty());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><strong>解题思路</strong></p>
+<p>这个设计方法比较巧妙，我们的要求是后序遍历，即<strong>左-右-根</strong>，而我们可以先利用栈的特性实现<strong>根-右-左</strong>的遍历，然后再利用<strong>vector类</strong>的<strong>reverse反转函数</strong>将其反转，即可实现<strong>左-右-根</strong>的效果。</p>
+<p><strong>源代码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">postorderTraversal</span><span class="params">(TreeNode *root)</span> </span>&#123;</div><div class="line">    <span class="comment">//先按根-右-左的形式存储，然后将其反转成左-右-根</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    <span class="keyword">if</span> (!root)</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode *&gt; S;</div><div class="line">    S.push(root);</div><div class="line">    <span class="keyword">while</span> (!S.empty())  &#123;</div><div class="line">        TreeNode *q=S.top();</div><div class="line">        S.pop();</div><div class="line">        result.push_back(q-&gt;data);</div><div class="line">        <span class="keyword">if</span> (q-&gt;lchild)  &#123;</div><div class="line">            S.push(q-&gt;lchild);            <span class="comment">//先进后出</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (q-&gt;rchild)  &#123;</div><div class="line">            S.push(q-&gt;rchild);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    reverse(result.begin(),result.end());          <span class="comment">//核心代码，实现反转</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h1><p><strong>特点：</strong>按从左向右的顺序逐层访问结点。</p>
+<p><strong>解题思路</strong></p>
+<p>借鉴图的<strong>广度优先遍历</strong>思想，利用<strong>队列</strong>来实现需求。</p>
+<p><strong>源代码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(TreeNode *root)</span> </span>&#123;</div><div class="line">    <span class="comment">//借鉴图的广度优先遍历思想</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; result;</div><div class="line">    <span class="keyword">if</span> (!root)</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    <span class="built_in">queue</span>&lt;TreeNode *&gt; Q;</div><div class="line">    Q.push(root);</div><div class="line">    <span class="keyword">while</span> (!Q.empty())  &#123;</div><div class="line">        <span class="keyword">int</span> num=Q.size();         <span class="comment">//判断每层结点数</span></div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tag;</div><div class="line">        <span class="keyword">while</span> (num--)  &#123;</div><div class="line">        TreeNode *p=Q.front();       <span class="comment">//利用p指向队头</span></div><div class="line">        tag.push_back(p-&gt;data);</div><div class="line">        Q.pop();</div><div class="line">        <span class="keyword">if</span> (p-&gt;lchild)</div><div class="line">            Q.push(p-&gt;lchild);</div><div class="line">        <span class="keyword">if</span> (p-&gt;rchild)</div><div class="line">            Q.push(p-&gt;rchild);</div><div class="line">        &#125;</div><div class="line">        result.push_back(tag);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/树/" rel="tag"># 树</a>
+          
+            <a href="/tags/递归/" rel="tag"># 递归</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/10/ThinkPHP框架学习（二）/" rel="next" title="ThinkPHP框架学习（二）">
+                <i class="fa fa-chevron-left"></i> ThinkPHP框架学习（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/17/recover-binary-search-tree/" rel="prev" title="recover-binary-search-tree">
+                recover-binary-search-tree <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://i4.buimg.com/588926/29818dcbd1446c22.jpg"
+               alt="Zhang Heng" />
+          <p class="site-author-name" itemprop="name">Zhang Heng</p>
+           
+              <p class="site-description motion-element" itemprop="description">我们养成习惯，习惯造就我们</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ai-heng" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/Ai-heng.dev/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-heart"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/a1522473678/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#先序遍历"><span class="nav-number">1.</span> <span class="nav-text">先序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">1.1.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理分析"><span class="nav-number">1.1.1.</span> <span class="nav-text">原理分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归"><span class="nav-number">1.2.</span> <span class="nav-text">非递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理分析-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">原理分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中序遍历"><span class="nav-number">2.</span> <span class="nav-text">中序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归-1"><span class="nav-number">2.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归-1"><span class="nav-number">2.2.</span> <span class="nav-text">非递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后序遍历"><span class="nav-number">3.</span> <span class="nav-text">后序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归-2"><span class="nav-number">3.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归-2"><span class="nav-number">3.2.</span> <span class="nav-text">非递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">3.2.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二"><span class="nav-number">3.2.2.</span> <span class="nav-text">方法二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#层次遍历"><span class="nav-number">4.</span> <span class="nav-text">层次遍历</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Heng</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+ 
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt8XaMTd';
+      var conf = 'a2945745327319fecd08eca5f1fb83a8';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("s2oVMMBmDTBAzCnWz6n7tJsH-gzGzoHsz", "orbfghgqN51nC3cOn4YTGiDQ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

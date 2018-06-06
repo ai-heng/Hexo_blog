@@ -1,0 +1,991 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="这几天呢，断断续续地在看孙叔华老师的ThinkPHP教程，期间还做了一些其他事情，出去办了点事，总结总结下一学期规划等等，不知不觉间又过去了大半个星期。现在呢，看完了一天的教程，在这里，还是希望稍微总结一番，加强自己的印象。 既然是学习ThinkPHP，那第一步肯定是要先获取该框架，可以从GitHub主页将其下载到本地。下载完成后，可以看到其初始目录如下：">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP框架学习（一）">
+<meta property="og:url" content="http://yoursite.com/2017/08/09/ThinkPHP框架学习（一）/index.html">
+<meta property="og:site_name" content="衡仔的技术小窝">
+<meta property="og:description" content="这几天呢，断断续续地在看孙叔华老师的ThinkPHP教程，期间还做了一些其他事情，出去办了点事，总结总结下一学期规划等等，不知不觉间又过去了大半个星期。现在呢，看完了一天的教程，在这里，还是希望稍微总结一番，加强自己的印象。 既然是学习ThinkPHP，那第一步肯定是要先获取该框架，可以从GitHub主页将其下载到本地。下载完成后，可以看到其初始目录如下：">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/tp_2.png">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/tp_3.png">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/tp_1.png">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/tp_4.png">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/tp_5.png">
+<meta property="og:image" content="http://opznmu7n5.bkt.clouddn.com/tp_6.png">
+<meta property="og:updated_time" content="2017-08-09T23:43:05.828Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ThinkPHP框架学习（一）">
+<meta name="twitter:description" content="这几天呢，断断续续地在看孙叔华老师的ThinkPHP教程，期间还做了一些其他事情，出去办了点事，总结总结下一学期规划等等，不知不觉间又过去了大半个星期。现在呢，看完了一天的教程，在这里，还是希望稍微总结一番，加强自己的印象。 既然是学习ThinkPHP，那第一步肯定是要先获取该框架，可以从GitHub主页将其下载到本地。下载完成后，可以看到其初始目录如下：">
+<meta name="twitter:image" content="http://opznmu7n5.bkt.clouddn.com/tp_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/09/ThinkPHP框架学习（一）/"/>
+
+
+
+
+
+  <title> ThinkPHP框架学习（一） | 衡仔的技术小窝 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-103027028-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?98f629bdd7a59dff8e53972873c753d3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">衡仔的技术小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/ThinkPHP框架学习（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Heng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://i4.buimg.com/588926/29818dcbd1446c22.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="衡仔的技术小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ThinkPHP框架学习（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T14:00:00+08:00">
+                2017-08-09  14:00:00
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/08/09/ThinkPHP框架学习（一）/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/08/09/ThinkPHP框架学习（一）/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/08/09/ThinkPHP框架学习（一）/" class="leancloud_visitors" data-flag-title="ThinkPHP框架学习（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这几天呢，断断续续地在看孙叔华老师的<strong>ThinkPHP教程</strong>，期间还做了一些其他事情，出去办了点事，总结总结下一学期规划等等，不知不觉间又过去了大半个星期。现在呢，看完了一天的教程，在这里，还是希望稍微总结一番，加强自己的印象。</p>
+<p>既然是学习<strong>ThinkPHP</strong>，那第一步肯定是要先获取该框架，可以从<a href="https://github.com/top-think/thinkphp" target="_blank" rel="external">GitHub主页</a>将其下载到本地。下载完成后，可以看到其初始目录如下：</p>
+<a id="more"></a>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/tp_2.png" alt=""></p>
+<p>其中的<strong>ThinkPHP</strong>目录结构如下：</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/tp_3.png" alt=""></p>
+<p>有关这些文件夹的具体作用，可以参照下图（参考<a href="https://www.kancloud.cn/manual/thinkphp/1682" target="_blank" rel="external">ThinkPHP3.2.3开发手册</a>）</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/tp_1.png" alt=""></p>
+<p>该视频教程是以<strong>雍达商城</strong>为实例，进行一步步改进，商城模板的下载链接为<a href="http://pan.baidu.com/s/1migdl2o" target="_blank" rel="external">百度网盘链接</a>，提取密码为<strong>4fjw</strong>。<br>商城模板里有写好的前端和后台代码，而我们接下来需要去做的就是利用<strong>ThinkPHP框架</strong>将商城模板结合起来。<br>我们在安装<strong>Apache</strong>的时候，知道PHP的默认工作空间是在<strong>Apache</strong>目录下的<strong>htdocs</strong>文件夹中，<br>而为了方便起见，我们通常都会去设置一个<strong>虚拟目录</strong>，将工作空间转移到其他任何位置，便于自己的查找和操作等。另外，接下来的过程中我会使用<strong>zend studio</strong>来编写文件，它同样也有一个<strong>workspace</strong>，所以在这里，将二者结合起来，我在D盘新建了一个<strong>zend</strong>文件夹，再在<strong>zend</strong>文件夹中新建一个<strong>workspace</strong>，我会将<strong>Apache</strong>的工作目录和<strong>zend studio</strong>的工作空间均置于此处，这样方便自己的操作。</p>
+<h1 id="虚拟目录设置"><a href="#虚拟目录设置" class="headerlink" title="虚拟目录设置"></a>虚拟目录设置</h1><p>经过前面的分析，我们了解到，<strong>Apache</strong>的默认目录位于<strong>D:/phpenvir/Apache2.4.25/htdocs</strong>，而我接下来要将其修改为<strong>D:/zend/workspace</strong>。</p>
+<p>打开<strong>Apache</strong>的安装目录，在<code>conf</code>文件夹下打开<code>httpd.conf</code>文件，<code>Ctrl+F</code>找到下面的代码：</p>
+<pre><code>#默认工作空间目录，将其关闭（在前面加#号即可）
+DocumentRoot &quot;D:/phpenvir/Apache2.4.25/htdocs&quot;
+</code></pre><p>接着<code>Crtl+F</code>,找到<code>&lt;IfModule dir_module&gt;</code>这一块，在其中加入如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;IfModule dir_module&gt;</div><div class="line">    #设置缺省载入界面 </div><div class="line">	DirectoryIndex index.html index.htm index.php</div><div class="line">	#设置站点别名，和网页访问路径有关</div><div class="line">	Alias /myweb &quot;D:/zend/workspace&quot;</div><div class="line">	    #定义目录权限设置</div><div class="line">        &lt;Directory &quot;D:/zend/workspace&quot;&gt;</div><div class="line">        #Indexes用于显示目录结构，MultiViews是搜索功能，用于进行文件名模式匹配</div><div class="line">		Options Indexes MultiViews FollowSymLinks</div><div class="line">		#不允许覆盖</div><div class="line">		AllowOverride None</div><div class="line">		#设置访问权限</div><div class="line">		#先允许，后拒绝</div><div class="line">		Order allow,deny</div><div class="line">		#允许所有人访问</div><div class="line">		Allow from all</div><div class="line">		#对这个目录给予授权</div><div class="line">		Require all granted</div><div class="line">        &lt;/Directory&gt;</div><div class="line">&lt;/IfModule&gt;</div></pre></td></tr></table></figure>
+<p>保存文件，重启<strong>Apache</strong>，在浏览器中输入<strong><a href="http://localhost/myweb" target="_blank" rel="external">http://localhost/myweb</a></strong>即可以正常访问，如下图：</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/tp_4.png" alt=""></p>
+<h1 id="zend-Studio工作空间设置"><a href="#zend-Studio工作空间设置" class="headerlink" title="zend Studio工作空间设置"></a>zend Studio工作空间设置</h1><p><strong>具体流程：</strong> Windows-&gt;Preferences-&gt;General-&gt;Starup and Shutdown-&gt;Workspaces-&gt;选中Prompt for workspace on statup这一项，关闭zend studio重新打开即可调整workspace路径地址，如下图：</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/tp_5.png" alt=""></p>
+<p>虚拟目录和zend studio工作空间设置好之后，我们就可以在<strong>D:/zend/workspace</strong>文件夹中新建项目了。此时我们打开工作目录的路径地址为<strong><a href="http://localhost/myweb" target="_blank" rel="external">http://localhost/myweb</a></strong>。</p>
+<h1 id="虚拟主机配置"><a href="#虚拟主机配置" class="headerlink" title="虚拟主机配置"></a>虚拟主机配置</h1><p>这里可以再做一件事（也可以略去），例如我们希望通过<strong><a href="http://www.myweb.com" target="_blank" rel="external">http://www.myweb.com</a></strong>这样一种方式来进行访问网页，但是我们并未申请该域名，直接进行访问<strong>www.myweb.com</strong>是行不通的（不过这个域名好像已经被其他人注册使用了，但终归是不能为己所用），这时我们可以去设置一个<strong>虚拟主机</strong>，通过修改本地<strong>hosts</strong>文件，对该域名进行解析，就可以在自己电脑上使用<strong>www.myweb.com</strong>来访问网页了（当然仅限于在自己电脑上，其实也没太大用途…而<strong>修改hosts文件翻墙</strong>也大致是利用了这个原理）。具体流程如下：</p>
+<ul>
+<li><p>打开<strong>Apache</strong>的安装目录，在<code>conf</code>文件夹下打开<code>httpd.conf</code>文件，<code>Ctrl+F</code>找到下面的代码：</p>
+<pre><code>  #Virtual hosts  去掉下面一行前面的#号，启动虚拟主机配置
+  #Include conf/extra/httpd-vhosts.conf
+</code></pre></li>
+<li><p>在<strong>conf</strong>目录下的<strong>extra</strong>文件夹下找到<code>httpd-vhosts.conf</code>文件，在文件最后加入下面一段代码：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#指定虚拟主机的IP地址和端口号，默认为127.0.0.1</div><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">	#主机名称</div><div class="line">	ServerName www.myweb.com</div><div class="line">	#网站目录</div><div class="line">	DocumentRoot &quot;D:/zend/workspace&quot;</div><div class="line">	DirectoryIndex index.html index.htm index.php</div><div class="line">	&lt;Directory &quot;D:/zend/workspace&quot;&gt;</div><div class="line">		Options Indexes MultiViews FollowSymLinks</div><div class="line">		AllowOverride All</div><div class="line">		Order deny,allow</div><div class="line">		Allow from all</div><div class="line">	&lt;/Directory&gt;</div><div class="line">&lt;/VirtualHost&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>打开位于<strong>C:/Windows/System32/drivers/etc</strong>目录下的<code>hosts</code>文件，在文件末尾添加一行代码：</p>
+<pre><code>   127.0.0.1           www.myweb.com
+</code></pre></li>
+</ul>
+<p>将该域名与本地主机建立解析关系。如下图所示：</p>
+<p><img src="http://opznmu7n5.bkt.clouddn.com/tp_6.png" alt=""></p>
+<ul>
+<li>以上修改完成之后，<strong>重启</strong> Apache服务器，在地址栏输入<strong><a href="http://www.myweb.com" target="_blank" rel="external">http://www.myweb.com</a></strong>即可以打开自己的工作目录。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/03/hexo博客MathJax公式渲染问题/" rel="next" title="hexo博客MathJax公式渲染问题">
+                <i class="fa fa-chevron-left"></i> hexo博客MathJax公式渲染问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/10/ThinkPHP框架学习（二）/" rel="prev" title="ThinkPHP框架学习（二）">
+                ThinkPHP框架学习（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://i4.buimg.com/588926/29818dcbd1446c22.jpg"
+               alt="Zhang Heng" />
+          <p class="site-author-name" itemprop="name">Zhang Heng</p>
+           
+              <p class="site-description motion-element" itemprop="description">我们养成习惯，习惯造就我们</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ai-heng" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/Ai-heng.dev/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-heart"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/a1522473678/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟目录设置"><span class="nav-number">1.</span> <span class="nav-text">虚拟目录设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zend-Studio工作空间设置"><span class="nav-number">2.</span> <span class="nav-text">zend Studio工作空间设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟主机配置"><span class="nav-number">3.</span> <span class="nav-text">虚拟主机配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Heng</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+ 
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访客
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt8XaMTd';
+      var conf = 'a2945745327319fecd08eca5f1fb83a8';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("s2oVMMBmDTBAzCnWz6n7tJsH-gzGzoHsz", "orbfghgqN51nC3cOn4YTGiDQ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
